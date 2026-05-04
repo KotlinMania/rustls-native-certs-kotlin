@@ -1,0 +1,22 @@
+{
+  "type": "port",
+  "name": "rustls-native-certs-kotlin",
+  "source": {
+    "path": "tmp/rustls-native-certs/src",
+    "lang": "rust"
+  },
+  "target": {
+    "path": "src/commonMain/kotlin/io/github/kotlinmania/rustlsnativecerts",
+    "lang": "kotlin"
+  },
+  "checks": {
+    "deep": true,
+    "missing": true,
+    "todos": true,
+    "lint": true
+  },
+  "reexport_modules": [
+    "mod.rs",
+    "lib.rs"
+  ]
+}
