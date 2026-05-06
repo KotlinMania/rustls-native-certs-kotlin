@@ -17,3 +17,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "rustls-native-certs-kotlin"
+
