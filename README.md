@@ -98,7 +98,7 @@ of these licenses, at your option.
 
 ```kotlin
 dependencies {
-    implementation("io.github.kotlinmania:rustls-native-certs-kotlin:0.1.0-SNAPSHOT")
+    implementation("io.github.kotlinmania:rustls-native-certs-kotlin:0.1.0")
 }
 ```
 
