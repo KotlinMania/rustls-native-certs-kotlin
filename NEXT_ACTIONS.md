@@ -4,14 +4,14 @@ Based on AST analysis, here are the concrete next steps.
 
 ## Summary
 
-- **Files Present:** 1/4 (25.0%)
-- **Function parity:** 1/4 matched (target 1) — 25.0%
-- **Class/type parity:** 0/0 matched (target 1) — N/A
-- **Combined symbol parity:** 1/4 matched (target 2) — 25.0%
-- **Average inline-code cosine:** 0.95 (function body across 1 matched files)
-- **Average documentation cosine:** 0.00 (doc text across 1 matched files)
+- **Files Present:** 2/4 (50.0%)
+- **Function parity:** 13/27 matched (target 31) — 48.1%
+- **Class/type parity:** 4/4 matched (target 22) — 100.0%
+- **Combined symbol parity:** 17/31 matched (target 53) — 54.8%
+- **Average inline-code cosine:** 0.68 (function body across 2 matched files)
+- **Average documentation cosine:** 0.17 (doc text across 2 matched files)
 - **Cheat-zeroed Files:** 0
-- **Critical Issues:** 0 files with <0.60 function similarity
+- **Critical Issues:** 1 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
 
@@ -27,7 +27,19 @@ No missing high-value files detected.
 
 Every matched file is listed below with function and type symbol parity.
 
-### 1. unix
+### 1. lib
+
+- **Target:** `rustlsnativecerts.Error`
+- **Similarity:** 0.41
+- **Dependents:** 0
+- **Priority Score:** 112705.9
+- **Functions:** 12/23 matched (target 30)
+- **Missing functions:** `source`, `fmt`, `deduplication`, `malformed_file_from_env`, `from_env_missing_file`, `from_env_missing_dir`, `from_env_with_non_regular_and_empty_file`, `from_env_bad_dir_perms`, `from_env_bad_file_perms`, `test_cert_paths_bad_perms`, `first_error`
+- **Types:** 4/4 matched (target 21)
+- **Missing types:** _none_
+- **Tests:** 0/9 matched
+
+### 2. unix
 
 - **Target:** `rustlsnativecerts.Unix`
 - **Similarity:** 0.95
@@ -56,15 +68,3 @@ For each file to be considered "complete":
 # Get next high-priority task
 /Volumes/stuff/Projects/kotlinmania/bin/ast_distance --assign tasks.json <agent-id>
 ```
-## Reexport / Wiring Modules
-
-These files match `reexport_modules` patterns in `.ast_distance_config.json`. They are filtered out of
-normal priority and missing-file ladders because they are wiring
-modules, not direct logic ports. Consult them for call-site routing;
-do not treat them as the next implementation target by default.
-
-### Missing
-
-| Source | Expected target | Deps | Source path | Expected path |
-|--------|-----------------|------|-------------|---------------|
-| `lib` | `Lib` | 0 | `lib.rs` | `Lib.kt` |
