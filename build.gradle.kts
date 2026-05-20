@@ -402,8 +402,9 @@ mavenPublishing {
 // ---------------------------------------------------------------------------
 // CodeQL Java/Kotlin extraction task
 //
-// .github/workflows/codeql.yml invokes `./gradlew codeqlCompileJvm` to feed
-// kotlinc-compiled commonMain through the CodeQL Java agent.
+// Optional local CodeQL extraction task for commonMain. The GitHub workflow
+// uses the real Kotlin target compile tasks so CI exercises customer-facing
+// Gradle paths.
 val codeqlKotlinc: Configuration by configurations.creating {
     description = "Kotlin compiler (CodeQL extraction target only - not published)"
     isCanBeResolved = true
