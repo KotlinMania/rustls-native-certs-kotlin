@@ -6,9 +6,9 @@ import kotlinx.io.files.Path
 /** Results from trying to load certificates from the platform's native store. */
 class CertificateResult(
     /** Any certificates that were successfully loaded. */
-    val certs: MutableList<CertificateDer> = mutableListOf(),
+    val certs: MutableList<CertificateDer> = mutableListOf<CertificateDer>(),
     /** Any errors encountered while loading certificates. */
-    val errors: MutableList<Error> = mutableListOf(),
+    val errors: MutableList<Error> = mutableListOf<Error>(),
 ) {
     /** Return the found certificates if no error occurred, otherwise throw. */
     fun expect(msg: String): List<CertificateDer> {
