@@ -8,6 +8,12 @@ data class Error(
     val context: String,
     val kind: ErrorKind,
 ) {
+    fun source(): Any = when (val errorKind = kind) {
+        is ErrorKind.Io -> errorKind.inner
+        is ErrorKind.Os -> errorKind.inner
+        is ErrorKind.Pem -> errorKind.inner
+    }
+
     override fun toString(): String =
         "$context: $kind"
 }
