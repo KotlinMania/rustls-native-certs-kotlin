@@ -199,10 +199,18 @@ kotlin {
         binaries.framework { baseName = "RustlsNativeCerts"; xcf.add(this) }
     }
     iosSimulatorArm64 {
-        binaries.framework { baseName = "RustlsNativeCerts"; xcf.add(this) }
+        binaries.framework {
+            baseName = "RustlsNativeCerts"
+            isStatic = true
+            xcf.add(this)
+        }
     }
     iosX64 {
-        binaries.framework { baseName = "RustlsNativeCerts"; xcf.add(this) }
+        binaries.framework {
+            baseName = "RustlsNativeCerts"
+            isStatic = true
+            xcf.add(this)
+        }
     }
 
     tvosArm64 {
