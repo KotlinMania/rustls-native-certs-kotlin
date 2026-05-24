@@ -3,12 +3,15 @@ package io.github.kotlinmania.rustlsnativecerts
 
 import kotlinx.io.files.Path
 
+internal fun emptyCertificateResult(): CertificateResult =
+    CertificateResult(mutableListOf<CertificateDer>(), mutableListOf<Error>())
+
 /** Results from trying to load certificates from the platform's native store. */
 class CertificateResult(
     /** Any certificates that were successfully loaded. */
-    val certs: MutableList<CertificateDer> = mutableListOf<CertificateDer>(),
+    val certs: MutableList<CertificateDer>,
     /** Any errors encountered while loading certificates. */
-    val errors: MutableList<Error> = mutableListOf<Error>(),
+    val errors: MutableList<Error>,
 ) {
     /** Return the found certificates if no error occurred, otherwise throw. */
     fun expect(msg: String): List<CertificateDer> {

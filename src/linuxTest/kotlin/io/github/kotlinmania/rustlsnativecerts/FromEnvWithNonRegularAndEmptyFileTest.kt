@@ -9,7 +9,7 @@ import kotlinx.io.files.Path
 class FromEnvWithNonRegularAndEmptyFileTest {
     @Test
     fun fromEnvWithNonRegularAndEmptyFile() {
-        val result = CertificateResult()
+        val result = emptyCertificateResult()
         loadPemCerts(Path("/dev/null"), result)
         assertEquals(0, result.certs.size)
         assertTrue(result.errors.isEmpty())

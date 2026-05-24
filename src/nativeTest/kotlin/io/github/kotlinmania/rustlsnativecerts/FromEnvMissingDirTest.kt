@@ -9,7 +9,7 @@ import kotlinx.io.files.Path
 class FromEnvMissingDirTest {
     @Test
     fun fromEnvMissingDir() {
-        val result = CertificateResult()
+        val result = emptyCertificateResult()
         loadPemCertsFromDir(Path("no/such/directory"), result)
         val kind = assertIs<ErrorKind.Io>(firstError(result).kind)
         assertEquals(IoErrorKind.NotFound, kind.errorKind)

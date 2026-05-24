@@ -14,7 +14,7 @@ class MalformedFileFromEnvTest {
             val malformed = Path(tempDir.toString(), "malformed.kt")
             writeTextFile(malformed, "package nope\nfun thisIsNotACertificate() = Unit\n")
 
-            val result = CertificateResult()
+            val result = emptyCertificateResult()
             loadPemCerts(malformed, result)
             assertEquals(0, result.certs.size)
             assertTrue(result.errors.isEmpty())
