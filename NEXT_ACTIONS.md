@@ -59,12 +59,3 @@ For each file to be considered "complete":
 - Documentation ported
 - port-lint header present
 
-## Next Commands
-
-```bash
-# Initialize task queue for systematic porting with the workspace shared binary.
-/Volumes/stuff/Projects/kotlinmania/bin/ast_distance --init-tasks tmp/rustls-native-certs/src rust src/commonMain/kotlin/io/github/kotlinmania/rustlsnativecerts kotlin tasks.json
-
-# Get next high-priority task
-/Volumes/stuff/Projects/kotlinmania/bin/ast_distance --assign tasks.json <agent-id>
-```
