@@ -3,6 +3,7 @@ kotlin = "2.4.0"
 coroutines = "1.11.0"
 serialization = "1.11.0"
 datetime = "0.8.0"
+io = "0.7.0"
 collectionsImmutable = "0.5.0"
 androidKmp = "9.2.1"
 detekt = "1.23.8"
@@ -23,14 +24,16 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "serialization" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime" }
+kotlinx-io-core = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "io" }
 collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "collectionsImmutable" }
 kotlinx-benchmark-runtime = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-runtime", version.ref = "kotlinxBenchmark" }
 
 [bundles]
-rustlsnativecerts-commonMain = [
+rustls-native-certs-commonMain = [
   "kotlinx-coroutines-core",
   "kotlinx-serialization-core",
   "kotlinx-serialization-json",
   "kotlinx-datetime",
+  "kotlinx-io-core",
   "collections-immutable",
 ]

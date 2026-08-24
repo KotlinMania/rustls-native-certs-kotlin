@@ -15,21 +15,6 @@ internal fun loadCertsFromPathsInternal(file: String?, dirs: List<String>): Cert
         loadPemCertsFromDir(Path(dir), out)
     }
 
-    out.certs.sort()
-    out.certs.deduplicateInPlace()
+    out.sortAndDeduplicateCerts()
     return out
-}
-
-private fun MutableList<CertificateDer>.deduplicateInPlace() {
-    if (size < 2) return
-    var writeIndex = 1
-    for (readIndex in 1 until size) {
-        if (this[readIndex] != this[writeIndex - 1]) {
-            this[writeIndex] = this[readIndex]
-            writeIndex += 1
-        }
-    }
-    while (size > writeIndex) {
-        removeAt(lastIndex)
-    }
 }

@@ -24,7 +24,7 @@ internal fun loadPemCerts(path: Path, out: CertificateResult) {
     }
 
     when (val result = CertificateDer.pemSliceIter(bytes)) {
-        is PemDecodeResult.Ok -> out.certs.addAll(result.certificates)
+        is PemDecodeResult.Ok -> out.addCerts(result.certificates)
         is PemDecodeResult.Err -> out.pemError(result.error, path)
     }
 }
