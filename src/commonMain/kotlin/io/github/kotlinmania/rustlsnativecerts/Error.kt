@@ -4,7 +4,7 @@ package io.github.kotlinmania.rustlsnativecerts
 import kotlinx.io.files.Path
 
 /** Error while loading certificates. */
-data class Error(
+data class CertError(
     val context: String,
     val kind: ErrorKind,
 ) {
