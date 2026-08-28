@@ -1,25 +1,32 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.0
 import PackageDescription
 
 let package = Package(
     name: "SwiftTestHarness",
     platforms: [
-        .macOS(.v14)
+        .macOS(.v14),
     ],
     dependencies: [
         .package(name: "RustlsNativeCerts", path: "../build/SPMPackage/macosArm64/Debug")
     ],
     targets: [
-        .executableTarget(
+        .testTarget(
             name: "SwiftTestHarnessTests",
             dependencies: [
                 .product(name: "RustlsNativeCertsLibrary", package: "RustlsNativeCerts")
             ],
-            path: "Tests/SwiftTestHarnessTests",
+            swiftSettings: [
+                .unsafeFlags([
+                    "-F", "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+                ]),
+            ],
             linkerSettings: [
                 .unsafeFlags([
                     "-L", "../build/swift-test",
                     "-lRustlsNativeCerts",
+                    "-F", "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+                    "-Xlinker", "-rpath", "-Xlinker", "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+                    "-Xlinker", "-rpath", "-Xlinker", "/Library/Developer/CommandLineTools/Library/Developer/usr/lib",
                 ]),
             ]
         ),
