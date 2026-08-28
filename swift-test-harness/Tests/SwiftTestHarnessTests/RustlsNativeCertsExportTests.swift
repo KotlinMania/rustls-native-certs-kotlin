@@ -1,9 +1,11 @@
+import Testing
 import RustlsNativeCerts
 
-@main
+@Suite("RustlsNativeCerts Swift Export Tests")
 struct RustlsNativeCertsExportTests {
-    static func main() {
-        print("RustlsNativeCerts swift module imported cleanly")
+    @Test("Swift module loads cleanly")
+    func testSwiftModuleLoads() {
+        #expect(Bool(true), "RustlsNativeCerts swift module imported cleanly")
     }
 }
 
