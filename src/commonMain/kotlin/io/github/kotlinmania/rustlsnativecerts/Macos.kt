@@ -39,9 +39,7 @@ internal object Macos {
                     result.addCert(CertificateDer(Der(der)))
                 }
 
-                else -> {
-                    Unit
-                }
+                else -> {}
             }
         }
 
