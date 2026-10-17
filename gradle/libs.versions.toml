@@ -11,6 +11,7 @@ ktlint = "14.2.0"
 ktlintEngine = "1.8.0"
 kotlinxBenchmark = "0.5.0"
 rustlsPkiTypes = "0.1.0"
+zeroize = "0.1.0"
 serialTest = "0.1.0"
 tempfile = "0.1.0"
 libc = "0.1.9"
@@ -33,6 +34,7 @@ kotlinx-io-core = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.re
 collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "collectionsImmutable" }
 kotlinx-benchmark-runtime = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-runtime", version.ref = "kotlinxBenchmark" }
 rustls-pki-types = { module = "io.github.kotlinmania:rustls-pki-types-kotlin", version.ref = "rustlsPkiTypes" }
+zeroize-kotlin = { module = "io.github.kotlinmania:zeroize-kotlin", version.ref = "zeroize" }
 serial-test = { module = "io.github.kotlinmania:serial-test-kotlin", version.ref = "serialTest" }
 tempfile = { module = "io.github.kotlinmania:tempfile-kotlin", version.ref = "tempfile" }
 libc = { module = "io.github.kotlinmania:libc-kotlin", version.ref = "libc" }
@@ -46,6 +48,7 @@ rustls-native-certs-commonMain = [
   "kotlinx-io-core",
   "collections-immutable",
   "rustls-pki-types",
+  "zeroize-kotlin",
 ]
 rustls-native-certs-commonTest = [
   "serial-test",

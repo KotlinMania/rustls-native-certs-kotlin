@@ -50,7 +50,10 @@ class CertificateResult(
     internal fun pemError(err: Throwable, path: Path) {
         val kind =
             when (err) {
-                is PathLoadException, is kotlinx.io.IOException -> {
+                is PathLoadException,
+                is kotlinx.io.IOException,
+                is io.github.kotlinmania.rustlspkitypes.PemError.Io,
+                -> {
                     ErrorKind.Io(
                         inner = err,
                         path = path,
@@ -90,8 +93,8 @@ class CertificateResult(
 
 private val CERTIFICATE_DER_COMPARATOR =
     Comparator<CertificateDer> { a, b ->
-        val aBytes = a.der.asRef()
-        val bBytes = b.der.asRef()
+        val aBytes = a.asRef()
+        val bBytes = b.asRef()
         val minLen = minOf(aBytes.size, bBytes.size)
         for (i in 0 until minLen) {
             val diff = (aBytes[i].toInt() and 0xFF) - (bBytes[i].toInt() and 0xFF)

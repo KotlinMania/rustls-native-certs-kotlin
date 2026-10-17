@@ -1,5 +1,7 @@
 package io.github.kotlinmania.rustlsnativecerts
 
+import io.github.kotlinmania.rustlsnativecerts.unix.loadNativeCerts as platformLoadNativeCerts
+
 /**
  * Load root certificates found in the platform's native certificate store.
  *
@@ -18,6 +20,6 @@ fun loadNativeCerts(): CertificateResult {
     return when {
         paths.dirs.isNotEmpty() -> paths.load()
         paths.file != null -> paths.load()
-        else -> Unix.loadNativeCerts()
+        else -> platformLoadNativeCerts()
     }
 }
