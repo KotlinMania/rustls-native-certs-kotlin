@@ -1,4 +1,3 @@
-// port-lint: source lib.rs
 package io.github.kotlinmania.rustlsnativecerts
 
 internal fun splitEnvPaths(value: String?): List<String> {

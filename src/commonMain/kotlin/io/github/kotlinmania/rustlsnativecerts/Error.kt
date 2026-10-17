@@ -1,10 +1,9 @@
-// port-lint: source lib.rs
 package io.github.kotlinmania.rustlsnativecerts
 
 import kotlinx.io.files.Path
 
 /** Error while loading certificates. */
-data class CertError(
+data class Error(
     val context: String,
     val kind: ErrorKind,
 ) {
@@ -32,8 +31,8 @@ sealed class ErrorKind {
         override fun toString(): String = inner.message ?: inner.toString()
     }
 
-    data class Pem(val inner: PemError) : ErrorKind() {
-        override fun toString(): String = inner.toString()
+    data class Pem(val inner: Throwable) : ErrorKind() {
+        override fun toString(): String = inner.message ?: inner.toString()
     }
 }
 

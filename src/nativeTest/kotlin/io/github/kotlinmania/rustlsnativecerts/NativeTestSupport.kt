@@ -1,4 +1,3 @@
-// port-lint: ignore (test support shared by direct translations of src/lib.rs tests)
 package io.github.kotlinmania.rustlsnativecerts
 
 import kotlin.random.Random

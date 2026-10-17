@@ -1,4 +1,3 @@
-// port-lint: ignore (native environment access for SSL_CERT_* discovery)
 @file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package io.github.kotlinmania.rustlsnativecerts

@@ -1,4 +1,3 @@
-// port-lint: ignore (Wasm-JS environment access for SSL_CERT_* discovery)
 @file:OptIn(kotlin.js.ExperimentalWasmJsInterop::class)
 
 package io.github.kotlinmania.rustlsnativecerts

@@ -1,4 +1,3 @@
-// port-lint: ignore (ported openssl-probe 0.2.0 dependency surface used by unix.rs)
 package io.github.kotlinmania.rustlsnativecerts
 
 import kotlinx.io.files.Path
