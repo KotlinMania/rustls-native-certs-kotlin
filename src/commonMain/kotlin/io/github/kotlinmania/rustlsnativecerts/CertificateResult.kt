@@ -1,6 +1,6 @@
-// port-lint: source lib.rs
 package io.github.kotlinmania.rustlsnativecerts
 
+import io.github.kotlinmania.rustlspkitypes.CertificateDer
 import kotlinx.io.files.Path
 
 internal fun emptyCertificateResult(): CertificateResult =
@@ -9,17 +9,17 @@ internal fun emptyCertificateResult(): CertificateResult =
 /** Results from trying to load certificates from the platform's native store. */
 class CertificateResult(
     certs: List<CertificateDer> = emptyList(),
-    errors: List<CertError> = emptyList(),
+    errors: List<Error> = emptyList(),
 ) {
     private val _certs: MutableList<CertificateDer> = certs.toMutableList()
-    private val _errors: MutableList<CertError> = errors.toMutableList()
+    private val _errors: MutableList<Error> = errors.toMutableList()
 
     /** Any certificates that were successfully loaded. */
     val certs: List<CertificateDer>
         get() = _certs
 
     /** Any errors encountered while loading certificates. */
-    val errors: List<CertError>
+    val errors: List<Error>
         get() = _errors
 
     internal fun addCert(cert: CertificateDer) {
@@ -31,7 +31,7 @@ class CertificateResult(
     }
 
     internal fun sortAndDeduplicateCerts() {
-        _certs.sort()
+        _certs.sortWith(CERTIFICATE_DER_COMPARATOR)
         _certs.deduplicateInPlace()
     }
 
@@ -47,21 +47,34 @@ class CertificateResult(
         throw IllegalStateException("errors occurred while loading certificates: $errors")
     }
 
-    internal fun pemError(err: PemError, path: Path) {
+    internal fun pemError(err: Throwable, path: Path) {
+        val kind =
+            when (err) {
+                is PathLoadException,
+                is kotlinx.io.IOException,
+                is io.github.kotlinmania.rustlspkitypes.PemError.Io,
+                -> {
+                    ErrorKind.Io(
+                        inner = err,
+                        path = path,
+                    )
+                }
+
+                else -> {
+                    ErrorKind.Pem(err)
+                }
+            }
         _errors.add(
-            CertError(
+            Error(
                 context = "failed to read PEM from file",
-                kind = when (err) {
-                    is PemError.Io -> ErrorKind.Io(err.cause, path)
-                    else -> ErrorKind.Pem(err)
-                },
+                kind = kind,
             ),
         )
     }
 
     internal fun ioError(err: Throwable, path: Path, context: String) {
         _errors.add(
-            CertError(
+            Error(
                 context = context,
                 kind = ErrorKind.Io(err, path),
             ),
@@ -70,13 +83,25 @@ class CertificateResult(
 
     internal fun osError(err: Throwable, context: String) {
         _errors.add(
-            CertError(
+            Error(
                 context = context,
                 kind = ErrorKind.Os(err),
             ),
         )
     }
 }
+
+private val CERTIFICATE_DER_COMPARATOR =
+    Comparator<CertificateDer> { a, b ->
+        val aBytes = a.asRef()
+        val bBytes = b.asRef()
+        val minLen = minOf(aBytes.size, bBytes.size)
+        for (i in 0 until minLen) {
+            val diff = (aBytes[i].toInt() and 0xFF) - (bBytes[i].toInt() and 0xFF)
+            if (diff != 0) return@Comparator diff
+        }
+        aBytes.size - bBytes.size
+    }
 
 private fun MutableList<CertificateDer>.deduplicateInPlace() {
     if (size < 2) return

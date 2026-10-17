@@ -1,25 +1,21 @@
-// port-lint: source lib.rs
-@file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
-
 package io.github.kotlinmania.rustlsnativecerts
 
+import io.github.kotlinmania.libc.unix.bsd.apple.S_IRGRP
+import io.github.kotlinmania.libc.unix.bsd.apple.S_IROTH
+import io.github.kotlinmania.libc.unix.bsd.apple.S_IRUSR
+import io.github.kotlinmania.libc.unix.bsd.apple.S_IWUSR
+import io.github.kotlinmania.libc.unix.bsd.apple.S_IXGRP
+import io.github.kotlinmania.libc.unix.bsd.apple.S_IXOTH
+import io.github.kotlinmania.libc.unix.bsd.apple.S_IXUSR
+import io.github.kotlinmania.libc.unix.chmod
 import kotlin.test.Test
-import kotlinx.cinterop.convert
-import platform.posix.S_IRGRP
-import platform.posix.S_IROTH
-import platform.posix.S_IRUSR
-import platform.posix.S_IWUSR
-import platform.posix.S_IXGRP
-import platform.posix.S_IXOTH
-import platform.posix.S_IXUSR
-import platform.posix.chmod
 
 class FromEnvBadDirPermsTest {
     @Test
     fun fromEnvBadDirPerms() {
         val tempDir = createTempRoot("from-env-bad-dir-perms")
         try {
-            chmod(tempDir.toString(), 0.convert())
+            chmod(tempDir.toString(), 0u)
             testCertPathsBadPerms(
                 CertPaths(
                     file = null,
@@ -27,11 +23,11 @@ class FromEnvBadDirPermsTest {
                 ),
             )
         } finally {
-            chmod(tempDir.toString(), readWriteExecuteMode().convert())
+            chmod(tempDir.toString(), readWriteExecuteMode())
             deleteRecursively(tempDir)
         }
     }
 }
 
-private fun readWriteExecuteMode(): Int =
-    S_IRUSR or S_IWUSR or S_IXUSR or S_IRGRP or S_IXGRP or S_IROTH or S_IXOTH
+private fun readWriteExecuteMode(): UInt =
+    (S_IRUSR.toUInt() or S_IWUSR.toUInt() or S_IXUSR.toUInt() or S_IRGRP.toUInt() or S_IXGRP.toUInt() or S_IROTH.toUInt() or S_IXOTH.toUInt())

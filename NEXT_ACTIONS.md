@@ -4,14 +4,16 @@ Based on AST analysis, here are the concrete next steps.
 
 ## Summary
 
-- **Files Present:** 2/4 (50.0%)
-- **Function parity:** 14/27 matched (target 36) — 51.9%
-- **Class/type parity:** 3/4 matched (target 22) — 75.0%
-- **Combined symbol parity:** 17/31 matched (target 58) — 54.8%
-- **Average inline-code cosine:** 0.69 (function body across 2 matched files)
-- **Average documentation cosine:** 0.17 (doc text across 2 matched files)
+- **Files Present:** 1/4 (25.0%)
+- **Function parity:** 1/4 matched (target 1) — 25.0%
+- **Class/type parity:** 0/0 matched — N/A
+- **Combined symbol parity:** 1/4 matched (target 1) — 25.0%
+- **Average inline-code cosine:** 0.68 (function body across 1 matched files)
+- **Average documentation cosine:** 0.00 (doc text across 1 matched files)
 - **Cheat-zeroed Files:** 0
-- **Critical Issues:** 1 files with <0.60 function similarity
+- **Critical Issues:** 0 files with <0.60 function similarity
+- **Needs Review:** 1 files with 0.60-0.84 function similarity
+- **Excellent:** 0 files with >=0.85 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
 
@@ -27,27 +29,15 @@ No missing high-value files detected.
 
 Every matched file is listed below with function and type symbol parity.
 
-### 1. lib
+### 1. unix
 
-- **Target:** `rustlsnativecerts.Error`
-- **Similarity:** 0.44
+- **Target:** `unix.Unix`
+- **Similarity:** 0.68
 - **Dependents:** 0
-- **Priority Score:** 112705.6
-- **Functions:** 13/23 matched (target 35)
-- **Missing functions:** `fmt`, `deduplication`, `malformed_file_from_env`, `from_env_missing_file`, `from_env_missing_dir`, `from_env_with_non_regular_and_empty_file`, `from_env_bad_dir_perms`, `from_env_bad_file_perms`, `test_cert_paths_bad_perms`, `first_error`
-- **Types:** 3/4 matched (target 21)
-- **Missing types:** `Error`
-- **Tests:** 0/9 matched
-
-### 2. unix
-
-- **Target:** `rustlsnativecerts.Unix`
-- **Similarity:** 0.95
-- **Dependents:** 0
-- **Priority Score:** 100.5
+- **Priority Score:** 103.2
 - **Functions:** 1/1 matched
 - **Missing functions:** _none_
-- **Types:** 0/0 matched (target 1)
+- **Types:** 0/0 matched
 - **Missing types:** _none_
 
 ## Success Criteria
@@ -58,4 +48,17 @@ For each file to be considered "complete":
 - All tests ported
 - Documentation ported
 - port-lint header present
+
+## Reexport / Wiring Modules
+
+These files match `reexport_modules` patterns in `.ast_distance_config.json`. They are filtered out of
+normal priority and missing-file ladders because they are wiring
+modules, not direct logic ports. Consult them for call-site routing;
+do not treat them as the next implementation target by default.
+
+### Missing
+
+| Source | Expected target | Deps | Source path | Expected path |
+|--------|-----------------|------|-------------|---------------|
+| `lib` | `Lib` | 0 | `lib.rs` | `Lib.kt` |
 

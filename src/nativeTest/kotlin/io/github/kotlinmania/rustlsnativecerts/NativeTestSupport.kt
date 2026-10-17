@@ -1,11 +1,10 @@
-// port-lint: ignore (test support shared by direct translations of src/lib.rs tests)
 package io.github.kotlinmania.rustlsnativecerts
 
-import kotlin.random.Random
 import kotlinx.io.buffered
 import kotlinx.io.files.Path
 import kotlinx.io.files.SystemFileSystem
 import kotlinx.io.writeString
+import kotlin.random.Random
 
 internal const val BADSSL_CERT_PEM = """
 -----BEGIN CERTIFICATE-----

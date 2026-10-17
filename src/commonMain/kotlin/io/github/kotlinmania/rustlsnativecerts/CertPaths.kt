@@ -1,7 +1,9 @@
-// port-lint: source lib.rs
 package io.github.kotlinmania.rustlsnativecerts
 
-/** Certificate paths from [SSL_CERT_FILE] and/or [SSL_CERT_DIR]. */
+internal const val ENV_CERT_FILE: String = "SSL_CERT_FILE"
+internal const val ENV_CERT_DIR: String = "SSL_CERT_DIR"
+
+/** Certificate paths from `SSL_CERT_FILE` and/or `SSL_CERT_DIR`. */
 internal data class CertPaths(
     val file: String?,
     val dirs: List<String>,
