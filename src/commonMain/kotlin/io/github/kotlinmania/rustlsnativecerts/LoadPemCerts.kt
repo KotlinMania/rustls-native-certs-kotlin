@@ -16,19 +16,21 @@ internal fun loadPemCerts(path: Path, out: CertificateResult) {
         return
     }
 
-    val bytes = try {
-        SystemFileSystem.source(path).buffered().use { source -> source.readByteArray() }
-    } catch (err: IOException) {
-        out.pemError(err, path)
-        return
-    } catch (err: IllegalArgumentException) {
-        out.pemError(err, path)
-        return
-    }
+    val bytes =
+        try {
+            SystemFileSystem.source(path).buffered().use { source -> source.readByteArray() }
+        } catch (err: IOException) {
+            out.pemError(err, path)
+            return
+        } catch (err: IllegalArgumentException) {
+            out.pemError(err, path)
+            return
+        }
 
-    val iter = PemObject.pemSliceIter(bytes) { kind, der ->
-        if (kind == SectionKind.Certificate) CertificateDer(Der(der)) else null
-    }
+    val iter =
+        PemObject.pemSliceIter(bytes) { kind, der ->
+            if (kind == SectionKind.Certificate) CertificateDer(Der(der)) else null
+        }
 
     for (result in iter) {
         if (result.isSuccess) {

@@ -34,10 +34,14 @@ internal object Macos {
         for ((der, trusted) in allCerts) {
             when (trusted) {
                 TrustSettingsForCertificate.TrustRoot,
-                TrustSettingsForCertificate.TrustAsRoot -> {
+                TrustSettingsForCertificate.TrustAsRoot,
+                -> {
                     result.addCert(CertificateDer(Der(der)))
                 }
-                else -> Unit
+
+                else -> {
+                    Unit
+                }
             }
         }
 
@@ -48,11 +52,12 @@ internal object Macos {
         domain: Domain,
         result: CertificateResult,
     ): List<Pair<ByteArray, TrustSettingsForCertificate>>? {
-        val domainContext = when (domain) {
-            Domain.User -> "failed to load user trust settings"
-            Domain.Admin -> "failed to load admin trust settings"
-            Domain.System -> "failed to load system trust settings"
-        }
+        val domainContext =
+            when (domain) {
+                Domain.User -> "failed to load user trust settings"
+                Domain.Admin -> "failed to load admin trust settings"
+                Domain.System -> "failed to load system trust settings"
+            }
         return emptyList()
     }
 }

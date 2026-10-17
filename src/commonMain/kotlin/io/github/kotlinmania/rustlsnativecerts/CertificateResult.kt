@@ -50,12 +50,16 @@ class CertificateResult(
     internal fun pemError(err: Throwable, path: Path) {
         val kind =
             when (err) {
-                is PathLoadException, is kotlinx.io.IOException ->
+                is PathLoadException, is kotlinx.io.IOException -> {
                     ErrorKind.Io(
                         inner = err,
                         path = path,
                     )
-                else -> ErrorKind.Pem(err)
+                }
+
+                else -> {
+                    ErrorKind.Pem(err)
+                }
             }
         _errors.add(
             Error(
@@ -84,16 +88,17 @@ class CertificateResult(
     }
 }
 
-private val CERTIFICATE_DER_COMPARATOR = Comparator<CertificateDer> { a, b ->
-    val aBytes = a.der.asRef()
-    val bBytes = b.der.asRef()
-    val minLen = minOf(aBytes.size, bBytes.size)
-    for (i in 0 until minLen) {
-        val diff = (aBytes[i].toInt() and 0xFF) - (bBytes[i].toInt() and 0xFF)
-        if (diff != 0) return@Comparator diff
+private val CERTIFICATE_DER_COMPARATOR =
+    Comparator<CertificateDer> { a, b ->
+        val aBytes = a.der.asRef()
+        val bBytes = b.der.asRef()
+        val minLen = minOf(aBytes.size, bBytes.size)
+        for (i in 0 until minLen) {
+            val diff = (aBytes[i].toInt() and 0xFF) - (bBytes[i].toInt() and 0xFF)
+            if (diff != 0) return@Comparator diff
+        }
+        aBytes.size - bBytes.size
     }
-    aBytes.size - bBytes.size
-}
 
 private fun MutableList<CertificateDer>.deduplicateInPlace() {
     if (size < 2) return

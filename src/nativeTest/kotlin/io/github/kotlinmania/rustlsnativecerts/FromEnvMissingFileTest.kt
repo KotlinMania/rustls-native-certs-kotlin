@@ -1,9 +1,9 @@
 package io.github.kotlinmania.rustlsnativecerts
 
+import kotlinx.io.files.Path
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
-import kotlinx.io.files.Path
 
 class FromEnvMissingFileTest {
     @Test

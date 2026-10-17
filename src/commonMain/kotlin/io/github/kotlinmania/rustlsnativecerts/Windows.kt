@@ -6,7 +6,10 @@ import io.github.kotlinmania.rustlspkitypes.Der
 
 internal sealed class ValidUses {
     data object All : ValidUses()
-    data class Oids(val strs: List<String>) : ValidUses()
+
+    data class Oids(
+        val strs: List<String>,
+    ) : ValidUses()
 }
 
 internal object Windows {

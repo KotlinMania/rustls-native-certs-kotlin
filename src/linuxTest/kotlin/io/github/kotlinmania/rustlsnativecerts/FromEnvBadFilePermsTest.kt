@@ -8,8 +8,8 @@ import io.github.kotlinmania.libc.unix.linuxlike.S_IWUSR
 import io.github.kotlinmania.libc.unix.linuxlike.S_IXGRP
 import io.github.kotlinmania.libc.unix.linuxlike.S_IXOTH
 import io.github.kotlinmania.libc.unix.linuxlike.S_IXUSR
-import kotlin.test.Test
 import kotlinx.io.files.Path
+import kotlin.test.Test
 
 class FromEnvBadFilePermsTest {
     @Test

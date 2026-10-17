@@ -11,23 +11,25 @@ internal fun loadPemCertsFromDir(dir: Path, out: CertificateResult) {
         return
     }
 
-    val entries = try {
-        SystemFileSystem.list(dir)
-    } catch (err: IOException) {
-        out.ioError(err, dir, "opening directory")
-        return
-    } catch (err: IllegalArgumentException) {
-        out.ioError(err, dir, "opening directory")
-        return
-    }
+    val entries =
+        try {
+            SystemFileSystem.list(dir)
+        } catch (err: IOException) {
+            out.ioError(err, dir, "opening directory")
+            return
+        } catch (err: IllegalArgumentException) {
+            out.ioError(err, dir, "opening directory")
+            return
+        }
 
     for (path in entries) {
-        val metadata = try {
-            SystemFileSystem.metadataOrNull(path)
-        } catch (err: IOException) {
-            out.ioError(err, path, "failed to open file")
-            continue
-        }
+        val metadata =
+            try {
+                SystemFileSystem.metadataOrNull(path)
+            } catch (err: IOException) {
+                out.ioError(err, path, "failed to open file")
+                continue
+            }
 
         if (metadata?.isRegularFile == true) {
             loadPemCerts(path, out)

@@ -5,8 +5,9 @@ internal actual fun environmentVariable(name: String): String? {
     return if (raw == null || raw == undefined()) null else raw.unsafeCast<String>().takeIf { it.isNotEmpty() }
 }
 
-private fun jsEnvironmentVariable(name: String): dynamic = js(
-    "(typeof process !== 'undefined' && process && process.env) ? process.env[name] : undefined",
-)
+private fun jsEnvironmentVariable(name: String): dynamic =
+    js(
+        "(typeof process !== 'undefined' && process && process.env) ? process.env[name] : undefined",
+    )
 
 private fun undefined(): dynamic = js("undefined")

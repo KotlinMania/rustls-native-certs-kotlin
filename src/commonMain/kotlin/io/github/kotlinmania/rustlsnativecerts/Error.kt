@@ -7,11 +7,12 @@ data class Error(
     val context: String,
     val kind: ErrorKind,
 ) {
-    fun source(): Any = when (val errorKind = kind) {
-        is ErrorKind.Io -> errorKind.inner
-        is ErrorKind.Os -> errorKind.inner
-        is ErrorKind.Pem -> errorKind.inner
-    }
+    fun source(): Any =
+        when (val errorKind = kind) {
+            is ErrorKind.Io -> errorKind.inner
+            is ErrorKind.Os -> errorKind.inner
+            is ErrorKind.Pem -> errorKind.inner
+        }
 
     override fun toString(): String =
         "$context: $kind"
@@ -27,11 +28,15 @@ sealed class ErrorKind {
         override fun toString(): String = "${inner.message ?: inner.toString()} at '$path'"
     }
 
-    data class Os(val inner: Throwable) : ErrorKind() {
+    data class Os(
+        val inner: Throwable,
+    ) : ErrorKind() {
         override fun toString(): String = inner.message ?: inner.toString()
     }
 
-    data class Pem(val inner: Throwable) : ErrorKind() {
+    data class Pem(
+        val inner: Throwable,
+    ) : ErrorKind() {
         override fun toString(): String = inner.message ?: inner.toString()
     }
 }
